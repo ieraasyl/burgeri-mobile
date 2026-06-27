@@ -1,4 +1,5 @@
 import { authBaseURL, authClient } from "@/lib/auth-client";
+import { fetch } from "expo/fetch";
 
 type ApiErrorBody = {
   message?: string;
@@ -145,8 +146,10 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
 
   let response: Response;
 
+  const url = buildApiUrl(path);
+
   try {
-    response = await fetch(buildApiUrl(path), {
+    response = await fetch(url, {
       ...options,
       headers,
       body: requestBody as BodyInit | null | undefined,
@@ -156,6 +159,12 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     if (error instanceof ApiError) {
       throw error;
     }
+
+    console.error("[apiFetch] network error", {
+      method: options.method ?? "GET",
+      url,
+      error
+    });
 
     throw new ApiError("Не удалось подключиться к серверу.", 0, "NETWORK_ERROR");
   }

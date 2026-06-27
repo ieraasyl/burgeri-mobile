@@ -1,5 +1,6 @@
 import { authClient } from "@/lib/auth-client";
 import { ApiError, apiFetch, hasApiBaseUrl } from "@/lib/api-client";
+import { File } from "expo-file-system";
 import { validateDraft } from "@/lib/validation";
 import type {
   Employee,
@@ -43,29 +44,12 @@ function getFileName(uri: string) {
   return uri.split("/").pop()?.split("?")[0] || `write-off-${Date.now()}.jpg`;
 }
 
-function getMimeType(fileName: string) {
-  const extension = fileName.split(".").pop()?.toLowerCase();
-
-  if (extension === "png") {
-    return "image/png";
-  }
-
-  if (extension === "webp") {
-    return "image/webp";
-  }
-
-  return "image/jpeg";
-}
-
 async function uploadWriteOffPhoto(photoUri: string) {
   const fileName = getFileName(photoUri);
   const formData = new FormData();
+  const file = new File(photoUri);
 
-  formData.append("file", {
-    uri: photoUri,
-    name: fileName,
-    type: getMimeType(fileName)
-  } as unknown as Blob);
+  formData.append("file", file, fileName);
 
   return apiFetch<PhotoUploadResponse>("/api/mobile/files/write-off-photo", {
     method: "POST",

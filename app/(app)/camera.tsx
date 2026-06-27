@@ -3,6 +3,7 @@ import { useDraft } from "@/providers/draft-provider";
 import { colors } from "@/theme/colors";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import * as Haptics from "expo-haptics";
+import * as ImageManipulator from "expo-image-manipulator";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
@@ -15,6 +16,15 @@ export default function Camera() {
   const [capturing, setCapturing] = useState(false);
   const { startDraft } = useDraft();
   const insets = useSafeAreaInsets();
+
+  async function prepareUploadPhoto(uri: string) {
+    const result = await ImageManipulator.manipulateAsync(uri, [{ resize: { width: 1600 } }], {
+      compress: 0.68,
+      format: ImageManipulator.SaveFormat.JPEG
+    });
+
+    return result.uri;
+  }
 
   useEffect(() => {
     if (permission && !permission.granted && permission.canAskAgain) {
@@ -34,10 +44,11 @@ export default function Camera() {
         await Haptics.selectionAsync();
       }
 
-      const photo = await cameraRef.current.takePictureAsync({ quality: 0.82 });
+      const photo = await cameraRef.current.takePictureAsync({ quality: 0.72 });
 
       if (photo?.uri) {
-        startDraft(photo.uri);
+        const uploadUri = await prepareUploadPhoto(photo.uri);
+        startDraft(uploadUri);
         router.replace("/request/product");
       }
     } finally {
@@ -157,4 +168,3 @@ export default function Camera() {
     </View>
   );
 }
-
