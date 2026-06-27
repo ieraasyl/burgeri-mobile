@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Burgeri Write-Off",
+    "slug": "burgeri-mobile",
+    "scheme": "burgeri",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "kz.burgeri.writeoff"
+    },
+    "android": {
+      "package": "kz.burgeri.writeoff"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Камера нужна, чтобы сделать фото продукции для заявки на списание."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": false
+    }
+  }
+}
