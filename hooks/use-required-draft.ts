@@ -1,16 +1,16 @@
 import { useDraft } from "@/providers/draft-provider";
-import { router } from "expo-router";
+import { router, useIsFocused } from "expo-router";
 import { useEffect } from "react";
 
 export function useRequiredDraft() {
   const { draft } = useDraft();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (!draft) {
+    if (isFocused && !draft) {
       router.replace("/history");
     }
-  }, [draft]);
+  }, [draft, isFocused]);
 
   return draft;
 }
-

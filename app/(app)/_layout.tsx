@@ -21,7 +21,7 @@ export default function AppLayout() {
           justifyContent: "center",
           padding: 24,
           gap: 16,
-          backgroundColor: colors.systemBackground
+          backgroundColor: colors.groupedBackground
         }}
       >
         <Text style={{ color: colors.label, fontSize: 24, fontWeight: "900" }}>Нет доступа</Text>
@@ -44,7 +44,10 @@ export default function AppLayout() {
         headerLargeTitle: true,
         headerShadowVisible: false,
         headerLargeTitleShadowVisible: false,
-        headerStyle: { backgroundColor: colors.systemBackground },
+        headerTintColor: colors.primary,
+        headerTitleStyle: { color: colors.label, fontWeight: "800" },
+        headerLargeTitleStyle: { color: colors.label, fontWeight: "900" },
+        headerStyle: { backgroundColor: colors.groupedBackground },
         contentStyle: { backgroundColor: colors.groupedBackground }
       }}
     >

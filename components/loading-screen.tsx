@@ -8,11 +8,10 @@ export function LoadingScreen() {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: colors.systemBackground
+        backgroundColor: colors.groupedBackground
       }}
     >
-      <ActivityIndicator />
+      <ActivityIndicator color={colors.primary} />
     </View>
   );
 }
-

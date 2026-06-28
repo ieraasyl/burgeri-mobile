@@ -78,7 +78,7 @@ export default function DetailsStep() {
       contentContainerStyle={{ padding: 16, gap: 18, paddingBottom: 32 }}
     >
       <View style={{ gap: 10 }}>
-        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "800" }}>Тип списания</Text>
+        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "900" }}>Тип списания</Text>
         <RadioRow
           title="Без удержания"
           subtitle="Заявка не привязана к удержанию с сотрудника."
@@ -94,7 +94,7 @@ export default function DetailsStep() {
       </View>
 
       <View style={{ gap: 10 }}>
-        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "800" }}>Категория списания</Text>
+        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "900" }}>Категория списания</Text>
         {categories.map((category) => (
           <RadioRow
             key={category.id}
@@ -109,7 +109,7 @@ export default function DetailsStep() {
       </View>
 
       <View style={{ gap: 8 }}>
-        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "800" }}>Комментарий</Text>
+        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "900" }}>Комментарий</Text>
         <TextInput
           multiline
           value={comment}
@@ -122,7 +122,7 @@ export default function DetailsStep() {
           textAlignVertical="top"
           style={{
             minHeight: 120,
-            borderRadius: 14,
+            borderRadius: 18,
             borderCurve: "continuous",
             padding: 14,
             color: colors.label,

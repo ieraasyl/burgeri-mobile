@@ -4,6 +4,7 @@ import { LoadingScreen } from "@/components/loading-screen";
 import { RadioRow } from "@/components/radio-row";
 import { catalogApi } from "@/data/api";
 import { useRequiredDraft } from "@/hooks/use-required-draft";
+import { formatPointOfSaleLocation } from "@/lib/format";
 import { parseQuantity } from "@/lib/validation";
 import { useDraft } from "@/providers/draft-provider";
 import { colors } from "@/theme/colors";
@@ -62,15 +63,16 @@ export default function QuantityStep() {
         style={{
           gap: 4,
           padding: 16,
-          borderRadius: 18,
+          borderRadius: 22,
           borderCurve: "continuous",
           borderWidth: 1,
           borderColor: colors.separator,
-          backgroundColor: colors.systemBackground
+          backgroundColor: colors.systemBackground,
+          boxShadow: colors.subtleShadow
         }}
       >
-        <Text style={{ color: colors.secondaryLabel, fontSize: 13 }}>Выбранный продукт</Text>
-        <Text selectable style={{ color: colors.label, fontSize: 18, fontWeight: "800" }}>
+        <Text style={{ color: colors.secondaryLabel, fontSize: 12, fontWeight: "700" }}>Выбранный продукт</Text>
+        <Text selectable style={{ color: colors.label, fontSize: 18, fontWeight: "900" }}>
           {product?.name ?? "Продукт"}
         </Text>
         <Text selectable style={{ color: colors.secondaryLabel, fontSize: 14 }}>
@@ -91,7 +93,7 @@ export default function QuantityStep() {
           placeholderTextColor={colors.tertiaryLabel}
           style={{
             minHeight: 52,
-            borderRadius: 14,
+            borderRadius: 16,
             borderCurve: "continuous",
             paddingHorizontal: 14,
             color: colors.label,
@@ -110,7 +112,7 @@ export default function QuantityStep() {
           <RadioRow
             key={point.id}
             title={point.name}
-            subtitle={point.address}
+            subtitle={formatPointOfSaleLocation(point)}
             selected={pointOfSaleId === point.id}
             onPress={() => {
               setPointOfSaleId(point.id);

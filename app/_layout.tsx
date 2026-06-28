@@ -3,11 +3,11 @@ import "react-native-gesture-handler";
 
 import { AuthProvider } from "@/providers/auth-provider";
 import { DraftProvider } from "@/providers/draft-provider";
+import { colors } from "@/theme/colors";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "expo-router/react-navigation";
+import { DefaultTheme, ThemeProvider } from "expo-router/react-navigation";
 import { Stack } from "expo-router/stack";
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme } from "react-native";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,12 +18,23 @@ const queryClient = new QueryClient({
   }
 });
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+const burgeriTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    background: colors.groupedBackground,
+    card: colors.groupedBackground,
+    text: colors.label,
+    border: colors.separator,
+    notification: colors.accent
+  }
+};
 
+export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={burgeriTheme}>
         <AuthProvider>
           <DraftProvider>
             <Stack screenOptions={{ headerShown: false }}>
@@ -39,4 +50,3 @@ export default function RootLayout() {
     </QueryClientProvider>
   );
 }
-

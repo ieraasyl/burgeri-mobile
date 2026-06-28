@@ -6,10 +6,10 @@ import { Text, View } from "react-native";
 export function StatusBadge({ status }: { status: WriteOffStatus }) {
   const backgroundColor =
     status === "approved"
-      ? "rgba(47, 143, 70, 0.13)"
+      ? colors.successSoft
       : status === "rejected"
-        ? "rgba(217, 45, 32, 0.13)"
-        : "rgba(196, 107, 20, 0.16)";
+        ? colors.destructiveSoft
+        : colors.warningSoft;
   const color =
     status === "approved"
       ? colors.systemGreen
@@ -20,15 +20,18 @@ export function StatusBadge({ status }: { status: WriteOffStatus }) {
   return (
     <View
       style={{
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
         alignSelf: "flex-start",
         borderRadius: 999,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingHorizontal: 11,
+        paddingVertical: 6,
         backgroundColor
       }}
     >
-      <Text style={{ color, fontSize: 12, fontWeight: "700" }}>{formatStatus(status)}</Text>
+      <View style={{ width: 6, height: 6, borderRadius: 999, backgroundColor: color }} />
+      <Text style={{ color, fontSize: 12, fontWeight: "800" }}>{formatStatus(status)}</Text>
     </View>
   );
 }
-

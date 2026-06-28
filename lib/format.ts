@@ -1,4 +1,4 @@
-import type { WriteOffStatus } from "@/types/domain";
+import type { PointOfSale, WriteOffStatus } from "@/types/domain";
 
 const statusLabels: Record<WriteOffStatus, string> = {
   pending: "На проверке",
@@ -23,3 +23,15 @@ export function formatRequestNumber(index: number) {
   return `WR-${String(index).padStart(5, "0")}`;
 }
 
+export function formatPointOfSaleLocation(point: PointOfSale) {
+  return [point.city, point.address].filter(Boolean).join(", ");
+}
+
+export function formatPointOfSale(point: PointOfSale | null | undefined, fallback = "Точка продаж") {
+  if (!point) {
+    return fallback;
+  }
+
+  const location = formatPointOfSaleLocation(point);
+  return location ? `${point.name}, ${location}` : point.name;
+}

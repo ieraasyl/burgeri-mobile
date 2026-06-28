@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/auth-client";
+import { authBaseURL, authClient } from "@/lib/auth-client";
 import { ApiError, apiFetch, hasApiBaseUrl } from "@/lib/api-client";
 import { File } from "expo-file-system";
 import { validateDraft } from "@/lib/validation";
@@ -33,10 +33,30 @@ function normalizeSession(value: Partial<UserSession> & Pick<UserSession, "emplo
   };
 }
 
+function normalizeMediaUrl(value?: string | null) {
+  if (!value) {
+    return undefined;
+  }
+
+  if (/^(https?:|file:|content:|data:|blob:)/i.test(value)) {
+    return value;
+  }
+
+  if (value.startsWith("/") && authBaseURL) {
+    return `${authBaseURL}${value}`;
+  }
+
+  return value;
+}
+
 function normalizeRequest(request: WriteOffRequest): WriteOffRequest {
+  const photoUrl = normalizeMediaUrl(request.photoUrl);
+  const photoUri = normalizeMediaUrl(request.photoUri) ?? photoUrl;
+
   return {
     ...request,
-    photoUri: request.photoUri ?? request.photoUrl
+    photoUrl,
+    photoUri
   };
 }
 

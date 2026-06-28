@@ -22,7 +22,7 @@ export function SummarySection({ photoUri, rows }: SummarySectionProps) {
           style={{
             width: "100%",
             aspectRatio: 1.4,
-            borderRadius: 18,
+            borderRadius: 22,
             backgroundColor: colors.secondarySystemBackground
           }}
         />
@@ -31,7 +31,7 @@ export function SummarySection({ photoUri, rows }: SummarySectionProps) {
           style={{
             width: "100%",
             aspectRatio: 1.4,
-            borderRadius: 18,
+            borderRadius: 22,
             borderCurve: "continuous",
             backgroundColor: colors.secondarySystemBackground,
             alignItems: "center",
@@ -45,10 +45,11 @@ export function SummarySection({ photoUri, rows }: SummarySectionProps) {
         style={{
           borderWidth: 1,
           borderColor: colors.separator,
-          borderRadius: 18,
+          borderRadius: 22,
           borderCurve: "continuous",
           overflow: "hidden",
-          backgroundColor: colors.systemBackground
+          backgroundColor: colors.systemBackground,
+          boxShadow: colors.subtleShadow
         }}
       >
         {rows.map((row, index) => (
@@ -56,13 +57,13 @@ export function SummarySection({ photoUri, rows }: SummarySectionProps) {
             key={row.label}
             style={{
               gap: 4,
-              padding: 14,
+              padding: 15,
               borderTopWidth: index === 0 ? 0 : 1,
               borderTopColor: colors.separator
             }}
           >
-            <Text style={{ color: colors.secondaryLabel, fontSize: 13 }}>{row.label}</Text>
-            <Text selectable style={{ color: colors.label, fontSize: 16, fontWeight: "600" }}>
+            <Text style={{ color: colors.secondaryLabel, fontSize: 12, fontWeight: "700" }}>{row.label}</Text>
+            <Text selectable style={{ color: colors.label, fontSize: 16, fontWeight: "800", lineHeight: 22 }}>
               {row.value}
             </Text>
           </View>

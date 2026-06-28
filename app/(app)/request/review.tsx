@@ -4,9 +4,9 @@ import { LoadingScreen } from "@/components/loading-screen";
 import { SummarySection, type SummaryRow } from "@/components/summary-section";
 import { catalogApi, requestsApi } from "@/data/api";
 import { useRequiredDraft } from "@/hooks/use-required-draft";
+import { formatPointOfSale } from "@/lib/format";
 import { validateDraft } from "@/lib/validation";
 import { useAuth } from "@/providers/auth-provider";
-import { useDraft } from "@/providers/draft-provider";
 import { colors } from "@/theme/colors";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
@@ -15,7 +15,6 @@ import { ScrollView, Text, View } from "react-native";
 export default function ReviewStep() {
   const draft = useRequiredDraft();
   const { session } = useAuth();
-  const { resetDraft } = useDraft();
   const queryClient = useQueryClient();
 
   const productsQuery = useQuery({
@@ -38,9 +37,9 @@ export default function ReviewStep() {
   const submitMutation = useMutation({
     mutationFn: async () => requestsApi.submit(draft!),
     onSuccess: async (request) => {
-      resetDraft();
       await queryClient.invalidateQueries({ queryKey: ["requests"] });
-      router.replace(`/request/${request.id}`);
+      router.dismissTo("/history");
+      router.push(`/request/${request.id}`);
     }
   });
 
@@ -63,7 +62,7 @@ export default function ReviewStep() {
   const rows: SummaryRow[] = [
     { label: "Продукт", value: product?.name ?? "Не выбран" },
     { label: "Количество", value: `${draft.quantity ?? "-"} ${product?.unit ?? ""}`.trim() },
-    { label: "Точка", value: point ? `${point.name}, ${point.address}` : "Не выбрана" },
+    { label: "Точка", value: formatPointOfSale(point, "Не выбрана") },
     {
       label: "Тип списания",
       value:
@@ -80,7 +79,18 @@ export default function ReviewStep() {
       contentInsetAdjustmentBehavior="automatic"
       contentContainerStyle={{ padding: 16, gap: 18, paddingBottom: 32 }}
     >
-      <View style={{ gap: 4 }}>
+      <View
+        style={{
+          gap: 6,
+          padding: 16,
+          borderRadius: 22,
+          borderCurve: "continuous",
+          borderWidth: 1,
+          borderColor: colors.separator,
+          backgroundColor: colors.systemBackground,
+          boxShadow: colors.subtleShadow
+        }}
+      >
         <Text style={{ color: colors.label, fontSize: 20, fontWeight: "900" }}>Проверьте заявку</Text>
         <Text selectable style={{ color: colors.secondaryLabel, fontSize: 15, lineHeight: 21 }}>
           После отправки заявка уйдет на проверку ответственному сотруднику.

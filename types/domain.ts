@@ -38,6 +38,7 @@ export type PointOfSale = {
   id: string;
   name: string;
   address: string;
+  city?: string;
 };
 
 export type WriteOffCategory = {

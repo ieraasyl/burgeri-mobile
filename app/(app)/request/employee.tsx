@@ -71,15 +71,16 @@ export default function EmployeeStep() {
         style={{
           gap: 5,
           padding: 16,
-          borderRadius: 18,
+          borderRadius: 22,
           borderCurve: "continuous",
           borderWidth: 1,
           borderColor: colors.separator,
-          backgroundColor: colors.systemBackground
+          backgroundColor: colors.systemBackground,
+          boxShadow: colors.subtleShadow
         }}
       >
-        <Text style={{ color: colors.secondaryLabel, fontSize: 13 }}>Выбран по умолчанию</Text>
-        <Text selectable style={{ color: colors.label, fontSize: 18, fontWeight: "800" }}>
+        <Text style={{ color: colors.secondaryLabel, fontSize: 12, fontWeight: "700" }}>Выбран по умолчанию</Text>
+        <Text selectable style={{ color: colors.label, fontSize: 18, fontWeight: "900" }}>
           {session.employee.name}
         </Text>
         <Text selectable style={{ color: colors.secondaryLabel, fontSize: 14 }}>
@@ -95,7 +96,7 @@ export default function EmployeeStep() {
         returnKeyType="search"
         style={{
           minHeight: 50,
-          borderRadius: 14,
+          borderRadius: 999,
           borderCurve: "continuous",
           paddingHorizontal: 14,
           color: colors.label,

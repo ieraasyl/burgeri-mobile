@@ -58,7 +58,7 @@ export default function ProductStep() {
         style={{
           width: "100%",
           aspectRatio: 1.65,
-          borderRadius: 18,
+          borderRadius: 22,
           backgroundColor: colors.secondarySystemBackground
         }}
       />
@@ -71,7 +71,7 @@ export default function ProductStep() {
         returnKeyType="search"
         style={{
           minHeight: 50,
-          borderRadius: 14,
+          borderRadius: 999,
           borderCurve: "continuous",
           paddingHorizontal: 14,
           color: colors.label,
@@ -94,6 +94,12 @@ export default function ProductStep() {
         ))}
       </ScrollView>
 
+      <View style={{ gap: 6 }}>
+        <Text selectable style={{ color: colors.secondaryLabel, fontSize: 12, fontWeight: "700" }}>
+          Показано {filteredProducts.length} из {products.length}
+        </Text>
+      </View>
+
       <View style={{ gap: 10 }}>
         {filteredProducts.map((product) => (
           <Pressable
@@ -101,17 +107,17 @@ export default function ProductStep() {
             onPress={() => updateDraft({ productId: product.id })}
             style={({ pressed }) => ({
               gap: 5,
-              padding: 14,
-              borderRadius: 16,
+              padding: 15,
+              borderRadius: 18,
               borderCurve: "continuous",
               borderWidth: 1,
-              borderColor: selectedProductId === product.id ? colors.systemBlue : colors.separator,
-              backgroundColor:
-                selectedProductId === product.id ? "rgba(10, 132, 255, 0.08)" : colors.systemBackground,
-              opacity: pressed ? 0.72 : 1
+              borderColor: selectedProductId === product.id ? "rgba(27, 122, 67, 0.32)" : colors.separator,
+              backgroundColor: selectedProductId === product.id ? colors.primarySoft : colors.systemBackground,
+              boxShadow: selectedProductId === product.id ? "0 6px 16px rgba(27, 122, 67, 0.08)" : undefined,
+              opacity: pressed ? 0.76 : 1
             })}
           >
-            <Text style={{ color: colors.label, fontSize: 16, fontWeight: "800" }}>{product.name}</Text>
+            <Text style={{ color: colors.label, fontSize: 16, fontWeight: "900" }}>{product.name}</Text>
             <Text selectable style={{ color: colors.secondaryLabel, fontSize: 13 }}>
               {product.sku} · {categories.find((category) => category.id === product.categoryId)?.name} · {product.unit}
             </Text>
@@ -133,9 +139,9 @@ function CategoryPill({ title, selected, onPress }: { title: string; selected: b
         justifyContent: "center",
         borderRadius: 999,
         paddingHorizontal: 14,
-        backgroundColor: selected ? colors.systemBlue : colors.systemBackground,
+        backgroundColor: selected ? colors.primary : colors.systemBackground,
         borderWidth: 1,
-        borderColor: selected ? colors.systemBlue : colors.separator,
+        borderColor: selected ? colors.primary : colors.separator,
         opacity: pressed ? 0.7 : 1
       })}
     >

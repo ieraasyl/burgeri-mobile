@@ -1,3 +1,4 @@
+import { BahandiMark } from "@/components/bahandi-brand";
 import { AppButton } from "@/components/app-button";
 import { FieldError } from "@/components/field-error";
 import { LoadingScreen } from "@/components/loading-screen";
@@ -46,27 +47,40 @@ export default function Login() {
           flexGrow: 1,
           justifyContent: "center",
           padding: 20,
-          gap: 24
+          gap: 28
         }}
       >
-        <View style={{ gap: 8 }}>
-          <Text style={{ color: colors.label, fontSize: 34, fontWeight: "900" }}>Списание</Text>
-          <Text selectable style={{ color: colors.secondaryLabel, fontSize: 17, lineHeight: 24 }}>
-            Войдите под личными учетными данными сотрудника.
-          </Text>
+        <View style={{ gap: 18 }}>
+          <BahandiMark size={56} />
+          <View style={{ gap: 8 }}>
+            <Text style={{ color: colors.label, fontSize: 34, fontWeight: "900", lineHeight: 38 }}>
+              Burgeri Ops
+            </Text>
+            <Text selectable style={{ color: colors.secondaryLabel, fontSize: 17, lineHeight: 24 }}>
+              Войдите в рабочее место списаний Burgeri.
+            </Text>
+          </View>
         </View>
 
         <View
           style={{
-            gap: 14,
-            padding: 16,
-            borderRadius: 22,
+            gap: 16,
+            padding: 18,
+            borderRadius: 24,
             borderCurve: "continuous",
             backgroundColor: colors.systemBackground,
             borderWidth: 1,
-            borderColor: colors.separator
+            borderColor: colors.separator,
+            boxShadow: colors.cardShadow
           }}
         >
+          <View style={{ gap: 4 }}>
+            <Text style={{ color: colors.label, fontSize: 18, fontWeight: "900" }}>Вход</Text>
+            <Text selectable style={{ color: colors.secondaryLabel, fontSize: 13, lineHeight: 18 }}>
+              Используйте личные данные сотрудника.
+            </Text>
+          </View>
+
           <View style={{ gap: 7 }}>
             <Text style={{ color: colors.secondaryLabel, fontSize: 13, fontWeight: "700" }}>Табельный номер</Text>
             <TextInput
@@ -82,10 +96,12 @@ export default function Login() {
               returnKeyType="next"
               style={{
                 minHeight: 48,
-                borderRadius: 12,
+                borderRadius: 14,
                 borderCurve: "continuous",
                 paddingHorizontal: 12,
-                backgroundColor: colors.secondarySystemBackground,
+                backgroundColor: colors.systemBackground,
+                borderWidth: 1,
+                borderColor: colors.separator,
                 color: colors.label,
                 fontSize: 16
               }}
@@ -107,10 +123,12 @@ export default function Login() {
               onSubmitEditing={handleSubmit}
               style={{
                 minHeight: 48,
-                borderRadius: 12,
+                borderRadius: 14,
                 borderCurve: "continuous",
                 paddingHorizontal: 12,
-                backgroundColor: colors.secondarySystemBackground,
+                backgroundColor: colors.systemBackground,
+                borderWidth: 1,
+                borderColor: colors.separator,
                 color: colors.label,
                 fontSize: 16
               }}

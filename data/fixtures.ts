@@ -37,10 +37,10 @@ export const products: Product[] = [
 ];
 
 export const pointsOfSale: PointOfSale[] = [
-  { id: "pos-1", name: "Burgeri Абая", address: "пр. Абая, 17" },
-  { id: "pos-2", name: "Burgeri Mega", address: "ТРЦ Mega Alma-Ata" },
-  { id: "pos-3", name: "Burgeri Dostyk", address: "пр. Достык, 85" },
-  { id: "pos-4", name: "Burgeri Forum", address: "ТРЦ Forum Almaty" }
+  { id: "pos-1", name: "Burgeri Абая", address: "пр. Абая, 17", city: "Алматы" },
+  { id: "pos-2", name: "Burgeri Mega", address: "ТРЦ Mega Alma-Ata", city: "Алматы" },
+  { id: "pos-3", name: "Burgeri Dostyk", address: "пр. Достык, 85", city: "Алматы" },
+  { id: "pos-4", name: "Burgeri Forum", address: "ТРЦ Forum Almaty", city: "Алматы" }
 ];
 
 export const writeOffCategories: WriteOffCategory[] = [
@@ -95,4 +95,3 @@ export const seededRequests: WriteOffRequest[] = [
     comment: "Упаковка была повреждена при приемке смены."
   }
 ];
-

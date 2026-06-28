@@ -72,7 +72,7 @@ export default function Camera() {
           justifyContent: "center",
           padding: 24,
           gap: 18,
-          backgroundColor: colors.systemBackground
+          backgroundColor: colors.groupedBackground
         }}
       >
         <Text style={{ color: colors.label, fontSize: 24, fontWeight: "900" }}>Нужен доступ к камере</Text>

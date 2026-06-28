@@ -18,13 +18,14 @@ export function RadioRow({ title, subtitle, selected, onPress }: RadioRowProps) 
         flexDirection: "row",
         alignItems: "center",
         gap: 12,
-        padding: 14,
-        borderRadius: 14,
+        padding: 15,
+        borderRadius: 18,
         borderCurve: "continuous",
         borderWidth: 1,
-        borderColor: selected ? colors.systemBlue : colors.separator,
-        backgroundColor: selected ? "rgba(10, 132, 255, 0.08)" : colors.systemBackground,
-        opacity: pressed ? 0.72 : 1
+        borderColor: selected ? "rgba(27, 122, 67, 0.32)" : colors.separator,
+        backgroundColor: selected ? colors.primarySoft : colors.systemBackground,
+        boxShadow: selected ? "0 6px 16px rgba(27, 122, 67, 0.08)" : undefined,
+        opacity: pressed ? 0.78 : 1
       })}
     >
       <View
@@ -33,7 +34,7 @@ export function RadioRow({ title, subtitle, selected, onPress }: RadioRowProps) 
           height: 22,
           borderRadius: 999,
           borderWidth: 2,
-          borderColor: selected ? colors.systemBlue : colors.tertiaryLabel,
+          borderColor: selected ? colors.primary : colors.tertiaryLabel,
           alignItems: "center",
           justifyContent: "center"
         }}
@@ -44,13 +45,13 @@ export function RadioRow({ title, subtitle, selected, onPress }: RadioRowProps) 
               width: 10,
               height: 10,
               borderRadius: 999,
-              backgroundColor: colors.systemBlue
+              backgroundColor: colors.primary
             }}
           />
         ) : null}
       </View>
       <View style={{ flex: 1, gap: 3 }}>
-        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "700" }}>{title}</Text>
+        <Text style={{ color: colors.label, fontSize: 16, fontWeight: "800" }}>{title}</Text>
         {subtitle ? (
           <Text selectable style={{ color: colors.secondaryLabel, fontSize: 13, lineHeight: 18 }}>
             {subtitle}
@@ -60,4 +61,3 @@ export function RadioRow({ title, subtitle, selected, onPress }: RadioRowProps) 
     </Pressable>
   );
 }
-

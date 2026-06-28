@@ -3,14 +3,26 @@ import { LoadingScreen } from "@/components/loading-screen";
 import { StatusBadge } from "@/components/status-badge";
 import { SummarySection, type SummaryRow } from "@/components/summary-section";
 import { catalogApi, requestsApi } from "@/data/api";
-import { formatDateTime } from "@/lib/format";
+import { formatDateTime, formatPointOfSale } from "@/lib/format";
+import { useDraft } from "@/providers/draft-provider";
 import { colors } from "@/theme/colors";
 import { useQuery } from "@tanstack/react-query";
 import { router, Stack, useLocalSearchParams } from "expo-router";
+import { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 
 export default function RequestDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { resetDraft } = useDraft();
+
+  useEffect(() => {
+    resetDraft();
+  }, [id, resetDraft]);
+
+  function handleReturnToHistory() {
+    router.dismissTo("/history");
+  }
+
   const requestQuery = useQuery({
     queryKey: ["requests", "detail", id],
     queryFn: () => requestsApi.getById(id),
@@ -55,7 +67,7 @@ export default function RequestDetail() {
         <Text selectable style={{ color: colors.secondaryLabel, fontSize: 16, lineHeight: 22 }}>
           Она могла быть удалена или недоступна для вашей учетной записи.
         </Text>
-        <AppButton title="В историю" onPress={() => router.replace("/history")} />
+        <AppButton title="В историю" onPress={handleReturnToHistory} />
       </ScrollView>
     );
   }
@@ -69,7 +81,7 @@ export default function RequestDetail() {
     { label: "Дата", value: formatDateTime(request.createdAt) },
     { label: "Продукт", value: product?.name ?? "Продукт" },
     { label: "Количество", value: `${request.quantity} ${product?.unit ?? ""}`.trim() },
-    { label: "Точка", value: point ? `${point.name}, ${point.address}` : "Точка продаж" },
+    { label: "Точка", value: formatPointOfSale(point) },
     {
       label: "Тип списания",
       value: request.deductionMode === "employee" ? `С удержанием: ${employee?.name ?? "сотрудник"}` : "Без удержания"
@@ -85,7 +97,18 @@ export default function RequestDetail() {
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{ padding: 16, gap: 18, paddingBottom: 32 }}
       >
-        <View style={{ gap: 8 }}>
+        <View
+          style={{
+            gap: 10,
+            padding: 16,
+            borderRadius: 22,
+            borderCurve: "continuous",
+            borderWidth: 1,
+            borderColor: colors.separator,
+            backgroundColor: colors.systemBackground,
+            boxShadow: colors.subtleShadow
+          }}
+        >
           <StatusBadge status={request.status} />
           <Text selectable style={{ color: colors.secondaryLabel, fontSize: 15, lineHeight: 21 }}>
             Заявка отправлена в процесс проверки вне мобильного приложения.
@@ -93,7 +116,7 @@ export default function RequestDetail() {
         </View>
 
         <SummarySection photoUri={request.photoUri} rows={rows} />
-        <AppButton title="Вернуться в историю" variant="secondary" onPress={() => router.replace("/history")} />
+        <AppButton title="Вернуться в историю" variant="secondary" onPress={handleReturnToHistory} />
       </ScrollView>
     </>
   );
